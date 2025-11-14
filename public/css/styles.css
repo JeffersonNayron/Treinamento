@@ -1,0 +1,393 @@
+/* styles.css — Linear-like dark theme + responsive + bottom-sheet */
+
+/* base tokens */
+:root{
+  --bg-0: #0b0f14;
+  --bg-1: #0f1720;
+  --panel: #0b1220;
+  --muted: #94a3b8;
+  --text: #e6eef8;
+  --surface: #0f1724;
+  --accent: #00737a; /* azul suave */
+  --accent-2: #00737a; /* violeta */
+  --card-radius: 12px;
+}
+/* =======================================
+   LIGHT MODE — TEMA CLARO COMPLETO
+   ======================================= */
+body.light {
+  --bg-0: #f4f7fb;
+  --bg-1: #ffffff;
+  --panel: #ffffff;
+  --muted: #64748b;
+  --text: #1e293b;
+  --surface: #ffffff;
+
+  --accent: #006b7a;
+  --accent-2: #009fb3;
+
+  --card-radius: 12px;
+}
+
+/* Ajustes específicos do light */
+body.light .navbar {
+  background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.04));
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+body.light .card {
+  background: linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02));
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+body.light .table thead tr {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+body.light .table tbody td {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+body.light .table tbody tr:hover td {
+  background: rgba(0,0,0,0.04);
+}
+
+body.light .date-badge {
+  background: rgba(0,0,0,0.06);
+  color: #1e293b;
+}
+
+body.light .date-badge.filled {
+  background: rgba(0,180,120,0.12);
+  color: #065f46;
+}
+
+body.light .date-badge.empty {
+  background: rgba(200,160,40,0.14);
+  color: #92400e;
+}
+
+/* Ícones "liberado" */
+body.light .state-red   { color: #e11d48; }
+body.light .state-yellow{ color: #eab308; }
+body.light .state-green { color: #22c55e; }
+
+/* global */
+* { box-sizing: border-box; }
+body {
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,var(--bg-0),var(--bg-1));
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* navbar & cards */
+.navbar {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  padding: .6rem 1rem;
+}
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: var(--card-radius);
+}
+
+/* table */
+.table {
+  color: var(--text);
+}
+.table thead tr {
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.table thead th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: .85rem;
+  padding: .9rem .75rem;
+}
+.table tbody td {
+  padding: .75rem .75rem;
+  background: transparent;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+.table tbody tr:hover td {
+  background: linear-gradient(90deg, rgba(110,168,255,0.03), rgba(139,92,246,0.02));
+  transform: translateZ(0);
+}
+
+/* name column */
+td .fw-semibold { font-weight:600; color:var(--text); }
+
+/* date badges */
+.date-badge {
+  display:inline-block;
+  min-width:86px;
+  padding:8px 10px;
+  border-radius:10px;
+  text-align:center;
+  font-size:0.9rem;
+  font-weight:600;
+  background: rgba(255,255,255,0.02);
+  color: var(--muted);
+}
+.date-badge.filled {
+  background: rgba(76, 217, 147, 0.12);
+  color: #a7f3d0;
+  border: 1px solid rgba(76,217,147,0.12);
+}
+.date-badge.empty {
+  background: rgba(249, 207, 69, 0.08);
+  color: #fef3c7;
+  border: 1px solid rgba(249,207,69,0.06);
+}
+
+/* liberado icon */
+.liberado-icon {
+  font-size:1.4rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  transition: transform .15s ease, box-shadow .15s;
+}
+.liberado-icon:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
+.state-red   { color: #ff7b7b; }
+.state-yellow{ color: #ffd166; }
+.state-green { color: #7ef0b0; }
+
+/* actions / buttons */
+.btn-primary {
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  border: none;
+  box-shadow: 0 6px 18px rgba(107, 114, 128, 0.06);
+}
+.btn-outline-danger {
+  color:#ffb4b4;
+  border-color: rgba(255,255,255,0.04);
+}
+
+/* bottom sheet */
+.bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  z-index: 9999;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+  transition: bottom .35s cubic-bezier(.22,.9,.2,1);
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+}
+.bottom-sheet.show { bottom: 0; }
+
+.bs-handle {
+  width: 48px;
+  height: 5px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  margin: 10px auto;
+}
+.bs-content { overflow:auto; }
+
+/* sheet items */
+.sheet-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 6px; border-radius:10px; }
+.sheet-row + .sheet-row { margin-top:8px; }
+
+/* inputs in sheet */
+.sheet-row label { font-weight:600; color:var(--muted); min-width:120px; }
+.sheet-row input[type="date"] {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--text);
+  padding:8px 10px;
+  border-radius:8px;
+}
+
+/* responsive: on small screens hide Acomp 2-4 columns (we already set classes in HTML) */
+@media (max-width: 880px) {
+  .d-md-table-cell { display: none !important; } /* our helper classes */
+  th:nth-child(3), td:nth-child(3) { /* Acomp 1 stays visible */ }
+  .table thead th, .table tbody td { font-size: .92rem; }
+}
+
+/* small polish */
+.container, .card-body { max-width:1200px; margin-inline:auto; }
+
+/* make table responsive visually on mobile */
+.table-responsive { overflow:auto; -webkit-overflow-scrolling: touch; }
+
+/* ===========================================
+   RESPONSIVE SIZE RULES (870px → 600px → 450px)
+   =========================================== */
+
+/* 🔽 Até 870px — compactar leve */
+@media (max-width: 870px) {
+  .table thead th {
+    font-size: .78rem;
+    padding: .55rem .45rem !important;
+  }
+
+  .table tbody td {
+    font-size: .82rem;
+    padding: .55rem .45rem !important;
+  }
+
+  .date-badge {
+    min-width: 70px;
+    font-size: .75rem;
+    padding: 6px 6px;
+  }
+
+  .liberado-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+}
+
+
+/* 🔽 Até 600px — compactar forte */
+@media (max-width: 600px) {
+  .table thead th {
+    font-size: .72rem;
+    padding: .45rem .35rem !important;
+  }
+
+  .table tbody td {
+    font-size: .78rem;
+    padding: .45rem .35rem !important;
+  }
+
+  .date-badge {
+    min-width: 60px;
+    font-size: .72rem;
+    padding: 5px 6px;
+    border-radius: 6px;
+  }
+
+  .liberado-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 1.05rem;
+  }
+
+  .sheet-row label {
+    min-width: 95px;
+    font-size: .8rem;
+  }
+}
+
+/* ==========================================
+   ULTRA COMPACTAÇÃO REAL PARA CELULAR
+   (FORÇA a tabela a ficar realmente pequena)
+   ========================================== */
+/* ==========================================
+   ULTRA COMPACTAÇÃO REAL PARA CELULAR
+   (FORÇA a tabela a ficar realmente pequena)
+   ========================================== */
+
+@media (max-width: 560px) {
+
+  /* tabela mais fina */
+  .table thead th,
+  .table tbody td {
+    font-size: 0.62rem !important;
+    padding: 0.28rem 0.25rem !important;
+    line-height: 1.05rem !important;
+  }
+
+  /* badge super compacto */
+  .date-badge {
+    min-width: 42px !important;
+    font-size: 0.58rem !important;
+    padding: 3px 3px !important;
+    border-radius: 4px !important;
+  }
+
+  /* nome mais compacto ainda */
+  td:first-child {
+    max-width: 90px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Ícone “liberado” reduzido */
+  .liberado-icon {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.9rem !important;
+    border-radius: 5px !important;
+  }
+
+  /* Reduz também a linha como um todo */
+  .table tbody tr {
+    height: 26px !important;
+  }
+
+  /* Bottom sheet ainda menor */
+  .bottom-sheet {
+    padding: 6px !important;
+  }
+
+  .sheet-row {
+    padding: 6px !important;
+    gap: 6px !important;
+  }
+
+  .sheet-row label {
+    font-size: 0.68rem !important;
+    min-width: 70px !important;
+  }
+
+  .sheet-row input[type="date"] {
+    padding: 4px 4px !important;
+    font-size: 0.68rem !important;
+  }
+
+  /* Cabeçalho mais fino */
+  .navbar {
+    padding: 0.35rem 0.6rem !important;
+  }
+
+  td:last-child {
+  width: 20px !important;
+  min-width: 25px !important;
+    margin-left: -10px !important;
+}
+
+.card-body {
+
+    margin-left: -10px;
+    font-size: -5%;
+
+}
+.table {
+    zoom: 85% !important;
+    margin-left: -5px !important;
+   
+    font-size: -10%;
+    width: 95%;
+
+}
+
+.tema_treinamento {
+    font-size: 13px;
+}
+
+
+
+}
+
+
+
